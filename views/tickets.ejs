@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/main.css">
+</head>
+  <body>
+    <h1>To Do:</h1>
+    <ul>
+      <% tickets.forEach(function(ticket, index) { %>
+        <li>
+          Time: <%- ticket.time %> -- <br>
+          Problem: <%= ticket.problem %> -- <br>
+          Updated: <%= ticket.update %> -- <a href="/tickets/update/<%= index %>">Update Now?</a> -- <br>
+          Comepleted: <a href="/tickets/delete/<%= index %>">Task completed?</a>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
