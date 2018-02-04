@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const pg = require('pg');
 
 const app = express();
 
@@ -50,6 +51,19 @@ app.use(session({secret: 'topsecret'}))
   req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
   res.redirect('/tickets');
 })
+
+// ACCESS DB
+.get('/db', function (request, response) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM test_table', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.render('pages/db', {results: result.rows} ); }
+    });
+  });
+});
 
 // LIMIT WHERE USER CAN ACCESS
 // .use((req, res, next) => {
