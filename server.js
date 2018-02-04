@@ -55,4 +55,10 @@ app.use(session({secret: 'topsecret'}))
   res.redirect('/problem');
 })
 
-.listen(8080);
+// .listen(8080);
+
+const port = process.env.PORT || 1234;
+
+app.listen(port, () => {
+  console.log(`working on ${port}`);
+});
