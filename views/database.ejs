@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/main.css">
+</head>
+  <body>
+    <h1>Database</h1>
+    <ul>
+      <% results.forEach(function(result, index) { %>
+        <li>
+          Data: <%- result %> 
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

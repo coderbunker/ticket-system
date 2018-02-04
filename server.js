@@ -13,6 +13,7 @@ const client = new Client({
 const app = express();
 
 // I NO LONGER REMEMBER
+// THIS IS LOGGING ON HEROKU, NEED TO FIGRUE OUT HOW TO PASS THIS DATA TO AN APP GET 
 client.connect();
 
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
