@@ -54,7 +54,7 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', function (request, response) {
-  pg.connect(process.env.HEROKU_POSTGRESQL_MAROON_URL, function(err, client, done) {
+  pg.connect(process.env.postgresql-convex-39203, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
