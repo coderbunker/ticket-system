@@ -13,7 +13,7 @@ const client = new Client({
 const app = express();
 
 // I NO LONGER REMEMBER
-client.pool();
+client.connect();
 
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
