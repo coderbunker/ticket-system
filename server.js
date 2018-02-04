@@ -3,11 +3,11 @@ const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:arduino@localhost:5432/todo'
-const pool = new pg.Pool()
+const connectionString = process.env.DATABASE_URL;
+const pool = new pg.Pool();
 const { Client } = require('pg');
 const client = new Client({
-  connectionString: process.env.DATABASE_URL || postgresql-tapered-50681,
+  connectionString: connectionString,
   ssl: true,
 });
 const app = express();
@@ -18,7 +18,7 @@ client.connect();
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+    console.log('FART: ', JSON.stringify(row));
   }
   client.end();
 });
@@ -75,7 +75,7 @@ app.use(session({secret: 'topsecret'}))
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
-       { console.error(err); response.send("Error " + err); }
+       { console.error(err); response.send("Burp Error " + err); }
       else
        { response.render('pages/db', {results: result.rows} ); }
     });
