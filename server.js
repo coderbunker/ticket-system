@@ -4,16 +4,15 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://postgres:arduino@localhost:5432/todo'
-
-const app = express();
-
+const pool = new pg.Pool()
 const { Client } = require('pg');
-
 const client = new Client({
   connectionString: process.env.DATABASE_URL || postgresql-tapered-50681,
   ssl: true,
 });
+const app = express();
 
+// I NO LONGER REMEMBER
 client.connect();
 
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
@@ -72,7 +71,7 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', function (request, response) {
-  pg.connect(connectionString, function(err, client, done) {
+  pool.connect(connectionString, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
@@ -82,6 +81,8 @@ app.use(session({secret: 'topsecret'}))
     });
   });
 });
+
+
 
 // LIMIT WHERE USER CAN ACCESS
 // .use((req, res, next) => {
