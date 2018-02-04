@@ -3,8 +3,26 @@ const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const pg = require('pg');
+const connectionString = process.env.DATABASE_URL || 'postgres://postgres:arduino@localhost:5432/todo'
 
 const app = express();
+
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL || postgresql-tapered-50681,
+  ssl: true,
+});
+
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
 
 // COOKIES
 app.use(session({secret: 'topsecret'}))
@@ -54,13 +72,13 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', function (request, response) {
-  pg.connect(process.env.postgresql-convex-39203, function(err, client, done) {
+  pg.connect(connectionString, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.render('pages/db', {results: result.rows} ); }
+       { response.render('/db', {results: result.rows} ); }
     });
   });
 });
