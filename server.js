@@ -51,10 +51,12 @@ app.use(session({secret: 'topsecret'}))
   res.redirect('/tickets');
 })
 
-.use((req, res, next) => {
-  res.redirect('/problem');
-})
+// LIMIT WHERE USER CAN ACCESS
+// .use((req, res, next) => {
+//   res.redirect('/problem');
+// })
 
+// TESTING PORT
 // .listen(8080);
 
 const port = process.env.PORT || 1234;
