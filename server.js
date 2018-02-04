@@ -6,7 +6,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
 
 // COOKIES
-app.use(session({secret: 'todotopsecret'}))
+app.use(session({secret: 'topsecret'}))
 
 // CREATE EMPTY ARRAY
 .use((req, res, next) => {
