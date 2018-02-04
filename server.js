@@ -13,7 +13,7 @@ const client = new Client({
 const app = express();
 
 // I NO LONGER REMEMBER
-client.connect();
+client.pool();
 
 client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
@@ -77,12 +77,10 @@ app.use(session({secret: 'topsecret'}))
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.render('/database.ejs', {results: result.rows} ); }
+       { response.render('pages/db', {results: result.rows} ); }
     });
   });
 });
-
-
 
 // LIMIT WHERE USER CAN ACCESS
 // .use((req, res, next) => {
