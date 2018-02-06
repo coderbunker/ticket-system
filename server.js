@@ -19,7 +19,7 @@ const client = new Client({
 const app = express();
 
 // COOKIES
-// ANYTHING WITH SESSION WILL NEED TO CHANGE TO ACCESS THE DB VIA CLIENT OR QUERY OR IDK
+// TODO ANYTHING WITH SESSION WILL NEED TO CHANGE TO ACCESS THE DB VIA CLIENT OR QUERY OR IDK
 app.use(session({secret: 'topsecret'}))
 
 // CREATE EMPTY ARRAY
@@ -73,26 +73,15 @@ app.use(session({secret: 'topsecret'}))
     // for (let row of res.rows) {
     //   console.log('FART: ', JSON.stringify(row));
     // }
-    if (err) { console.error(err); response.send("Not Good: Error " + err); }
+    if (err) {
+      console.error(err);
+      response.send("Not Good: Error " + err); }
     else {
       console.log('HEY LOOK HERE');
-      // names of vars is a bit off for the template...to fix
-      console.log('response', response);
+      // TODO names of vars is a bit off for the template...to fix
+      console.log('RESPONSE', res);
       // response.render('database.ejs', {results: response.rows});
     }
-     // { response.render('pages/db', {results: result.rows} ); }
-
-    // pool.connect(process.env.DATABASE_URL, (err, client, done) => {
-    //   console.log('GOT THIS FAR');
-    //   client.query('SELECT * FROM test_table', (err, result) => {
-    //     done();
-        // if (err)
-        //  { console.error(err); response.send("Burp Error " + err); }
-        // else
-        //   {console.log('HEY LOOK HERE');}
-        //  // { response.render('pages/db', {results: result.rows} ); }
-    //   });
-    // });
     client.end();
   });
 
