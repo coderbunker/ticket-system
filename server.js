@@ -7,9 +7,14 @@ const connectionString = process.env.DATABASE_URL;
 const pool = new pg.Pool();
 const { Client } = require('pg');
 const client = new Client({
+  host: connectionString,
+  port: process.env.PORT || 5432,
+  user: 'crhmioxrgicttd',
+  password: '483a2752c65fffcf08a86647a4f10c49861a21bc5016595914d0b49b035bc1ac',
   connectionString: connectionString,
   ssl: true,
 });
+
 const app = express();
 
 // COOKIES
@@ -73,7 +78,7 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', (request, response) => {
-  client.connect(process.env.DATABASE_URL, (err, client, done) => {console.log('Please'); done();});
+  client.connect(connectionString, function(err, client, done) {console.log('Please');});
   // client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   client.query('SELECT * FROM test_table', (err, res) => {
 
