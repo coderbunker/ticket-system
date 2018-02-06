@@ -3,9 +3,9 @@ const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL;
-const pool = new pg.Pool();
 const { Client } = require('pg');
+const pool = new pg.Pool();
+const connectionString = process.env.DATABASE_URL;
 const client = new Client({
   // TODO CUT OUT SOME OF THIS TO SEE WHAT IS NEEDED
   host: connectionString,
