@@ -49,6 +49,7 @@ app.use(session({secret: 'topsecret'}))
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   if (req.body.newproblem == '') {
+    // THIS WILL NEED TO PUSH THE QUERY TO THE DB WHEN I'VE GOT THAT FIGRUED
     req.session.tickets.push({time: now.toTimeString(), problem: 'No description.', update: false });
   }else{
     req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
@@ -80,7 +81,7 @@ app.use(session({secret: 'topsecret'}))
       console.log('FART: ', JSON.stringify(row));
     }
 
-    pool.connect(connectionString, function(err, client, done) {
+    client.connect(connectionString, function(err, client, done) {
       client.query('SELECT * FROM test_table', function(err, result) {
         done();
         if (err)
