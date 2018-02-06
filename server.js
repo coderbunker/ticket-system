@@ -67,16 +67,13 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', (request, response) => {
-  let results;
   client.connect();
   client.query('SELECT * FROM test_table', (err, res) => {
     if (err) {
       console.error(err);
       response.send("Not Good: Error " + err); }
     else {
-      results = {results: res.rows};
-      console.log('HEY LOOK HERE: ', results);
-      response.render('database.ejs', results);
+      response.render('database.ejs', {results: res.rows});
     }
     client.end();
   });
