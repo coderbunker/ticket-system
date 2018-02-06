@@ -12,20 +12,20 @@ const client = new Client({
 });
 const app = express();
 
-// I NO LONGER REMEMBER
-// THIS IS LOGGING ON HEROKU, NEED TO FIGRUE OUT HOW TO PASS THIS DATA TO AN APP GET 
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log('FART: ', JSON.stringify(row));
-  }
-  client.end();
-});
-
 // COOKIES
 app.use(session({secret: 'topsecret'}))
+
+// I NO LONGER REMEMBER
+// THIS IS LOGGING ON HEROKU, NEED TO FIGRUE OUT HOW TO PASS THIS DATA TO AN APP GET
+// client.connect();
+//
+// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log('FART: ', JSON.stringify(row));
+//   }
+//   client.end();
+// });
 
 // CREATE EMPTY ARRAY
 .use((req, res, next) => {
@@ -72,15 +72,36 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', function (request, response) {
-  pool.connect(connectionString, function(err, client, done) {
-    client.query('SELECT * FROM test_table', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Burp Error " + err); }
-      else
-       { response.render('pages/db', {results: result.rows} ); }
+  client.connect();
+
+  client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      console.log('FART: ', JSON.stringify(row));
+    }
+
+    pool.connect(connectionString, function(err, client, done) {
+      client.query('SELECT * FROM test_table', function(err, result) {
+        done();
+        if (err)
+         { console.error(err); response.send("Burp Error " + err); }
+        else
+          {console.log('HEY LOOK HERE');}
+         // { response.render('pages/db', {results: result.rows} ); }
+      });
     });
+    client.end();
   });
+
+  // pool.connect(connectionString, function(err, client, done) {
+  //   client.query('SELECT * FROM test_table', function(err, result) {
+  //     done();
+  //     if (err)
+  //      { console.error(err); response.send("Burp Error " + err); }
+  //     else
+  //      { response.render('pages/db', {results: result.rows} ); }
+  //   });
+  // });
 });
 
 // LIMIT WHERE USER CAN ACCESS
