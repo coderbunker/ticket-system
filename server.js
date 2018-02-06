@@ -67,35 +67,19 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', (request, response) => {
+  let results;
   client.connect();
   client.query('SELECT * FROM test_table', (err, res) => {
-    // if (err) throw err;
-    // for (let row of res.rows) {
-    //   console.log('FART: ', JSON.stringify(row));
-    // }
     if (err) {
       console.error(err);
       response.send("Not Good: Error " + err); }
     else {
       console.log('HEY LOOK HERE');
-      // TODO names of vars is a bit off for the template...to fix
-      // console.log('RESPONSE', res.rows);
-      // console.log('RESPONSE', res.rows[1]);
-      // console.log('RESPONSE', res.rows[1].name);
-      res.render('database.ejs', {results: res.rows});
+      results = {results: res.rows};
     }
     client.end();
   });
-
-  // pool.connect(connectionString, function(err, client, done) {
-  //   client.query('SELECT * FROM test_table', function(err, result) {
-  //     done();
-  //     if (err)
-  //      { console.error(err); response.send("Burp Error " + err); }
-  //     else
-  //      { response.render('pages/db', {results: result.rows} ); }
-  //   });
-  // });
+  response.render('database.ejs', results);
 });
 
 // LIMIT WHERE USER CAN ACCESS
