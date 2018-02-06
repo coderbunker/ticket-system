@@ -79,7 +79,9 @@ app.use(session({secret: 'topsecret'}))
     else {
       console.log('HEY LOOK HERE');
       // TODO names of vars is a bit off for the template...to fix
-      console.log('RESPONSE', res);
+      console.log('RESPONSE', res.rows);
+      console.log('RESPONSE', res.rows[1]);
+      console.log('RESPONSE', res.rows[1].name);
       // response.render('database.ejs', {results: response.rows});
     }
     client.end();
