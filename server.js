@@ -72,7 +72,7 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // ACCESS DB
-.get('/db', function (request, response) {
+.get('/db', (request, response) => {
   client.connect();
 
   client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
@@ -81,8 +81,9 @@ app.use(session({secret: 'topsecret'}))
       console.log('FART: ', JSON.stringify(row));
     }
 
-    client.connect(connectionString, function(err, client, done) {
-      client.query('SELECT * FROM test_table', function(err, result) {
+    pool.connect(process.env.DATABASE_URL, (err, client, done) => {
+      console.log('GOT THIS FAR');
+      client.query('SELECT * FROM test_table', (err, result) => {
         done();
         if (err)
          { console.error(err); response.send("Burp Error " + err); }
