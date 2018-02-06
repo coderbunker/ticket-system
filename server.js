@@ -75,12 +75,11 @@ app.use(session({secret: 'topsecret'}))
       response.send("Not Good: Error " + err); }
     else {
       results = {results: res.rows};
+      console.log('HEY LOOK HERE: ', results);
+      response.render('database.ejs', results);
     }
     client.end();
   });
-  console.log('HEY LOOK HERE: ', results);
-
-  response.render('database.ejs', results);
 });
 
 // LIMIT WHERE USER CAN ACCESS
