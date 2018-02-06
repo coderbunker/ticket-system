@@ -74,11 +74,12 @@ app.use(session({secret: 'topsecret'}))
       console.error(err);
       response.send("Not Good: Error " + err); }
     else {
-      console.log('HEY LOOK HERE');
       results = {results: res.rows};
     }
     client.end();
   });
+  console.log('HEY LOOK HERE: ', results);
+
   response.render('database.ejs', results);
 });
 
