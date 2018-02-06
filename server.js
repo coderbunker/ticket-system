@@ -7,6 +7,7 @@ const connectionString = process.env.DATABASE_URL;
 const pool = new pg.Pool();
 const { Client } = require('pg');
 const client = new Client({
+  // TODO CUT OUT SOME OF THIS TO SEE WHAT IS NEEDED
   host: connectionString,
   port: process.env.PORT || 5432,
   user: 'crhmioxrgicttd',
@@ -18,19 +19,8 @@ const client = new Client({
 const app = express();
 
 // COOKIES
+// ANYTHING WITH SESSION WILL NEED TO CHANGE TO ACCESS THE DB VIA CLIENT OR QUERY OR IDK
 app.use(session({secret: 'topsecret'}))
-
-// I NO LONGER REMEMBER
-// THIS IS LOGGING ON HEROKU, NEED TO FIGRUE OUT HOW TO PASS THIS DATA TO AN APP GET
-// client.connect();
-//
-// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-//   if (err) throw err;
-//   for (let row of res.rows) {
-//     console.log('FART: ', JSON.stringify(row));
-//   }
-//   client.end();
-// });
 
 // CREATE EMPTY ARRAY
 .use((req, res, next) => {
@@ -54,7 +44,6 @@ app.use(session({secret: 'topsecret'}))
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   if (req.body.newproblem == '') {
-    // THIS WILL NEED TO PUSH THE QUERY TO THE DB WHEN I'VE GOT THAT FIGRUED
     req.session.tickets.push({time: now.toTimeString(), problem: 'No description.', update: false });
   }else{
     req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
@@ -87,7 +76,9 @@ app.use(session({secret: 'topsecret'}))
     if (err) { console.error(err); response.send("Not Good: Error " + err); }
     else {
       console.log('HEY LOOK HERE');
-      response.render('database.ejs', {results: response.rows});
+      // names of vars is a bit off for the template...to fix
+      console.log('response', response);
+      // response.render('database.ejs', {results: response.rows});
     }
      // { response.render('pages/db', {results: result.rows} ); }
 
