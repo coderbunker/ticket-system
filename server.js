@@ -73,7 +73,7 @@ app.use(session({secret: 'topsecret'}))
 
 // ACCESS DB
 .get('/db', (request, response) => {
-  client.connect();
+  client.connect(process.env.DATABASE_URL, (err, client, done) => {console.log('Please'); done();});
   // client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   client.query('SELECT * FROM test_table', (err, res) => {
 
