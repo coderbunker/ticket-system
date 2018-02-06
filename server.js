@@ -84,12 +84,11 @@ app.use(session({secret: 'topsecret'}))
     // for (let row of res.rows) {
     //   console.log('FART: ', JSON.stringify(row));
     // }
-    if (err)
-     { console.error(err); response.send("Not Good: Error " + err); }
-    else
-      {console.log('HEY LOOK HERE');
-      res.render('database.ejs', {results: res.rows});
-}
+    if (err) { console.error(err); response.send("Not Good: Error " + err); }
+    else {
+      console.log('HEY LOOK HERE');
+      response.render('database.ejs', {results: response.rows});
+    }
      // { response.render('pages/db', {results: result.rows} ); }
 
     // pool.connect(process.env.DATABASE_URL, (err, client, done) => {
