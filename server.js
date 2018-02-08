@@ -37,7 +37,7 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // VIEW TICKETS
-.get('/tickets', (req, res) => {
+.get('/tickets', (request, response) => {
   client.connect();
   client.query('SELECT * FROM test_table', (err, res) => {
     if (err) {
