@@ -39,7 +39,7 @@ app.use(session({secret: 'topsecret'}))
 // VIEW TICKETS
 .get('/tickets', (request, response) => {
   client.connect();
-  client.query('SELECT * FROM test_table', (err, res) => {
+  client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
       response.send("Not Good: Error " + err); }
@@ -48,11 +48,10 @@ app.use(session({secret: 'topsecret'}))
     }
     client.end();
   });
-  // res.render('tickets.ejs', {tickets: req.session.tickets});
 })
 
 // ADD TICKET
-// toy-ticket-heroku::DATABASE=> insert into test_table (id, name) values (2, 'some oy');
+// toy-ticket-heroku::DATABASE=> insert into tickets (id, name) values (2, 'some oy');
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   if (req.body.newproblem == '') {
@@ -61,6 +60,17 @@ app.use(session({secret: 'topsecret'}))
     req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
   }
   res.redirect('/problem');
+  //
+  // client.connect();
+  // client.query('INSERT INTO tickets (id, name, time)', (err, res) => {
+  //   if (err) {
+  //     console.error(err);
+  //     response.send("Not Good: Error " + err); }
+  //   else {
+  //     response.render('tickets.ejs', {tickets: res.rows});
+  //   }
+  //   client.end();
+  // });
 })
 
 // DELETE TICKET
@@ -81,7 +91,7 @@ app.use(session({secret: 'topsecret'}))
 // ACCESS DB
 .get('/db', (request, response) => {
   client.connect();
-  client.query('SELECT * FROM test_table', (err, res) => {
+  client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
       response.send("Not Good: Error " + err); }
