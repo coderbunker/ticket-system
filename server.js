@@ -31,16 +31,28 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // VIEW PROBLEM
+// TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
 .get('/problem', (req, res) => {
   res.render('problem.ejs', {tickets: req.session.tickets});
 })
 
 // VIEW TICKETS
 .get('/tickets', (req, res) => {
-  res.render('tickets.ejs', {tickets: req.session.tickets});
+  client.connect();
+  client.query('SELECT * FROM test_table', (err, res) => {
+    if (err) {
+      console.error(err);
+      response.send("Not Good: Error " + err); }
+    else {
+      response.render('tickets.ejs', {tickets: res.rows});
+    }
+    client.end();
+  });
+  // res.render('tickets.ejs', {tickets: req.session.tickets});
 })
 
 // ADD TICKET
+// toy-ticket-heroku::DATABASE=> insert into test_table (id, name) values (2, 'some oy');
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   if (req.body.newproblem == '') {
@@ -52,6 +64,7 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // DELETE TICKET
+// delete from cd.members where memid = 37;
 .get('/tickets/delete/:id', (req, res) => {
   if (req.params.id != '') {
     req.session.tickets.splice(req.params.id, 1);
