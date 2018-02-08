@@ -42,7 +42,7 @@ app.use(session({secret: 'topsecret'}))
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
-      response.send("Not Good: Error " + err); }
+      response.send("Not Good... Error " + err); }
     else {
       response.render('tickets.ejs', {tickets: res.rows});
     }
@@ -54,23 +54,23 @@ app.use(session({secret: 'topsecret'}))
 // toy-ticket-heroku::DATABASE=> insert into tickets (id, name) values (2, 'some oy');
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  if (req.body.newproblem == '') {
-    req.session.tickets.push({time: now.toTimeString(), problem: 'No description.', update: false });
-  }else{
-    req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
-  }
-  res.redirect('/problem');
+  // if (req.body.newproblem == '') {
+  //   req.session.tickets.push({time: now.toTimeString(), problem: 'No description.', update: false });
+  // }else{
+    // req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
+  // }
+  // res.redirect('/problem');
   //
-  // client.connect();
-  // client.query('INSERT INTO tickets (id, name, time)', (err, res) => {
-  //   if (err) {
-  //     console.error(err);
-  //     response.send("Not Good: Error " + err); }
-  //   else {
-  //     response.render('tickets.ejs', {tickets: res.rows});
-  //   }
-  //   client.end();
-  // });
+  client.connect();
+  client.query('INSERT INTO tickets (uuid, member, item, resolved, assigned, description, picture, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', 'member_name', 'item_name', false, 'assigned_to', req.body.newproblem, 'link_to_picture', now.toTimeString())', (err, res) => {
+    if (err) {
+      console.error(err);
+      response.send("Breaking thing... Error " + err); }
+    else {
+  res.redirect('/problem');
+    }
+    client.end();
+  });
 })
 
 // DELETE TICKET

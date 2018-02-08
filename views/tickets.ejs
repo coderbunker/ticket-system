@@ -5,16 +5,17 @@
 </head>
   <body>
     <h1>To Do:</h1>
-    NEED to redesign all of this
     <ul>
       <% tickets.forEach(function(ticket, index) { %>
         <li>
-
           Time: <%- ticket.time %> -- <br>
-          ID: <%= ticket.id %> -- <br>
-          Name: <%= ticket.name %> -- <br>
-          Updated: <%= ticket.update %> -- <a href="/tickets/update/<%= index %>">Update Now?</a> -- <br>
-          Comepleted: <a href="/tickets/delete/<%= index %>">Task completed?</a>
+          UUID: <%= ticket.uuid %> -- <br>
+          Item: <%= ticket.item %> -- <br>
+          Member: <%= ticket.member %> -- <br>
+          Description: <%= ticket.description %> -- <br>
+          Picture: <%= ticket.picture %> -- <br>
+          Assigned to: <%= ticket.assigned %> -- <br>
+          Resolved: <%= ticket.resolved %> -- (needs to be turned into a modify link) <br>
         </li>
       <% }); %>
     </ul>
