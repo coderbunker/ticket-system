@@ -1,0 +1,2 @@
+Updated: <%= ticket.update %> -- <a href="/tickets/update/<%= index %>">Update Now?</a> -- <br>
+Comepleted: <a href="/tickets/delete/<%= index %>">Task completed?</a>

@@ -8,7 +8,15 @@
     <ul>
       <% results.forEach(function(result, index) { %>
         <li>
-          Data: <%- result.name %>
+          <%- result.uuid %>
+          <%- result.member %>
+          <%- result.item %>
+          <%- result.resolved %>
+          <%- result.assigned %>
+          <%- result.description %>
+          <%- result.picture %>
+          <%- result.time %>
+          ---------------------------
         </li>
       <% }); %>
     </ul>
