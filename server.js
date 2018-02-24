@@ -53,7 +53,7 @@ app.get('/tickets', (request, response) => {
 app.get('/tickets/assigned/:id', urlencodedParser, (req, res) => {
   let id = req.params.id;
   console.log('DA WHOLE BODY: ', req);
-  client.query("UPDATE tickets SET assigned = '" + req.body.newassigned + "' WHERE uuid = '" + id + "'", (err, rows) => {
+  client.query("UPDATE tickets SET assigned = '" + req.query.newassigned + "' WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
       res.send("UPDATE Assigned Error: " + err);
