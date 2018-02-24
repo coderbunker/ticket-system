@@ -51,24 +51,17 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // ADD TICKET
-// toy-ticket-heroku::DATABASE=> insert into tickets (id, name) values (2, 'some oy');
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  // if (req.body.newproblem == '') {
-  //   req.session.tickets.push({time: now.toTimeString(), problem: 'No description.', update: false });
-  // }else{
-    // req.session.tickets.push({time: now.toTimeString(), problem: req.body.newproblem, update: false });
-  // }
-  // res.redirect('/problem');
-  //
   client.connect();
-  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', ' " + req.body.newproblem + " ', ' " + now.toTimeString() + " ')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("Breaking thing... Error " + err); }
     else {
-  res.redirect('/problem');
+  // res.redirect('/problem');
     }
+    res.redirect('/problem');
     client.end();
   });
 })
