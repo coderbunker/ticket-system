@@ -76,7 +76,7 @@ app.get('/tickets/delete/:id', (req, res) => {
 // TESTING PORT
 // .listen(8080);
 
-// const port = process.env.PORT || 1234;
+const port = process.env.PORT || 1234;
 
 app.listen(port, () => {
   console.log(`working on ${port}`);
