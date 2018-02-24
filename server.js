@@ -20,27 +20,19 @@ const app = express();
 
 // COOKIES
 // TODO ANYTHING WITH SESSION WILL NEED TO CHANGE TO ACCESS THE DB VIA CLIENT OR QUERY OR IDK
-app.use(session({secret: 'topsecret'}))
-
-// CREATE EMPTY ARRAY
-// .use((req, res, next) => {
-//   if (typeof(req.session.tickets) == 'undefined') {
-//     req.session.tickets = [];
-//   }
-//   next();
-// })
+// app.use(session({secret: 'topsecret'}))
 
 client.connect();
 
 // VIEW PROBLEM BUTTON
 // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
-.get('/problem', (req, res) => {
+app.get('/problem', (req, res) => {
   // res.render('problem.ejs', {tickets: req.session.tickets});
   res.render('problem.ejs');
 })
 
 // CREATE TICKET
-.post('/problem/add/', urlencodedParser, (req, res) => {
+app.post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   // client.connect();
   client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
@@ -54,7 +46,7 @@ client.connect();
 })
 
 // READ TICKETS
-.get('/tickets', (request, response) => {
+app.get('/tickets', (request, response) => {
   // client.connect();
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
@@ -68,7 +60,7 @@ client.connect();
 })
 
 // UPDATE TICKET DETAILS
-.get('/tickets/update/:id', (req, res) => {
+app.get('/tickets/update/:id', (req, res) => {
   req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
   res.redirect('/tickets');
 })
@@ -82,7 +74,7 @@ client.connect();
 //   res.redirect('/tickets');
 // })
 
-.get('/tickets/delete/:id', (req, res) => {
+app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
   // client.connect();
   client.query("DELETE FROM customer WHERE id = ? ",[id], function(err, rows){
