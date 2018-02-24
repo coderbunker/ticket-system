@@ -50,7 +50,7 @@ app.get('/tickets', (request, response) => {
 })
 
 // UPDATE TICKET ASSIGNED
-app.get('/tickets/assigned/:id', (req, res) => {
+app.get('/tickets/assigned/:id', urlencodedParser, (req, res) => {
   let id = req.params.id;
   client.query("UPDATE tickets SET assigned = '" + req.body.newassigned + "' WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
