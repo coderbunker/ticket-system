@@ -55,9 +55,12 @@ app.get('/tickets', (request, response) => {
 // TODO
 // UPDATE TICKET DETAILS
 app.get('/tickets/resolved/:id', (req, res) => {
-  UPDATE films SET kind = 'Dramatic' WHERE kind = 'Drama';
-
-  req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
+  client.query("UPDATE tickets SET resolved = 'true'", (err, rows) => {
+    if(err){
+      console.error(err);
+      res.send("UPDATE Error: " + err);
+    }
+  });
   res.redirect('/tickets');
 })
 
