@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const uuid = require('uuid/v4');
 const pg = require('pg');
 const { Client } = require('pg');
 const pool = new pg.Pool();
@@ -23,13 +24,14 @@ client.connect();
 // VIEW PROBLEM BUTTON
 app.get('/problem', (req, res) => {
   // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
+  console.log('uuid1', uuid);
+  console.log('uuid2', uuid);
   res.render('problem.ejs');
 })
 
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  // client.connect();
   client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
@@ -42,7 +44,6 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 
 // READ TICKETS
 app.get('/tickets', (request, response) => {
-  // client.connect();
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
@@ -64,9 +65,7 @@ app.get('/tickets/update/:id', (req, res) => {
 // DELETE TICKET
 app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
-  // a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12
-  // client.connect();
-  client.query("DELETE FROM tickets WHERE uuid = '"+id+"'", (err, rows) => {
+  client.query("DELETE FROM tickets WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
       res.send("DELETE Error: " + err);
