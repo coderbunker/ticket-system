@@ -88,10 +88,10 @@ app.use(session({secret: 'topsecret'}))
       console.log("Error deleting : %s ", err );
       res.send("Not Good... Error " + err);
     }
-    res.redirect('/tickets');
+    client.end();
   });
   // MAYBE DELETE THIS TO TEST
-  client.end();
+  res.redirect('/tickets');
 });
 
 // LIMIT WHERE USER CAN ACCESS
