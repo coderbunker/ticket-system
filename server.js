@@ -62,8 +62,7 @@ app.use(session({secret: 'topsecret'}))
   // res.redirect('/problem');
   //
   client.connect();
-// " + req.body.newproblem + ", " + now.toTimeString() + "
-  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', ' " + req.body.newproblem + " ', 'filler time')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', ' " + req.body.newproblem + " ', ' " + now.toTimeString() + " ')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("Breaking thing... Error " + err); }
