@@ -61,12 +61,12 @@ app.use(session({secret: 'topsecret'}))
     else {
   // res.redirect('/problem');
     }
-    console.log('before redirect');
-    res.redirect('/problem');
-    console.log('should have redirected by now');
     client.end();
     console.log('after client.end thingf');
   });
+  console.log('before redirect');
+  res.redirect('/problem');
+  console.log('should have redirected by now');
 })
 
 // DELETE TICKET
