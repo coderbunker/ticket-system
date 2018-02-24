@@ -64,6 +64,8 @@ app.get('/tickets/update/:id', (req, res) => {
 // DELETE TICKET
 app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
+  console.log('id', id);
+  console.log('id type', typeof id);
   // client.connect();
   client.query("DELETE FROM tickets WHERE UUID = " + id + ")", (err, rows) => {
     if(err){
