@@ -65,7 +65,7 @@ app.get('/tickets/update/:id', (req, res) => {
 app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
   // client.connect();
-  client.query("DELETE FROM tickets WHERE id = "id"", (err, rows) => {
+  client.query("DELETE FROM tickets WHERE id = " + id + ")", (err, rows) => {
     if(err){
       console.error(err);
       res.send("DELETE Error: " + err);
