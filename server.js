@@ -24,8 +24,6 @@ client.connect();
 // VIEW PROBLEM BUTTON
 app.get('/problem', (req, res) => {
   // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
-  console.log('uuid1', uuid);
-  console.log('uuid2', uuid);
   res.render('problem.ejs');
 })
 
@@ -64,10 +62,14 @@ app.get('/tickets/update/:id', (req, res) => {
 
 // DELETE TICKET
 app.get('/tickets/delete/:id', (req, res) => {
+  console.log('uuid1', uuid());
+  console.log('uuid2', uuid());
   let id = req.params.id;
   client.query("DELETE FROM tickets WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
+      console.log('uuid3', uuid());
+      console.log('uuid4', uuid());
       res.send("DELETE Error: " + err);
     }
     // client.end();
