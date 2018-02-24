@@ -18,16 +18,11 @@ const client = new Client({
 
 const app = express();
 
-// COOKIES
-// TODO ANYTHING WITH SESSION WILL NEED TO CHANGE TO ACCESS THE DB VIA CLIENT OR QUERY OR IDK
-// app.use(session({secret: 'topsecret'}))
-
 client.connect();
 
 // VIEW PROBLEM BUTTON
-// TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
 app.get('/problem', (req, res) => {
-  // res.render('problem.ejs', {tickets: req.session.tickets});
+  // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
   res.render('problem.ejs');
 })
 
@@ -38,7 +33,7 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
   client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
-      response.send("Breaking thing... Error " + err);
+      response.send("CREATE Error: " + err);
     }
     // client.end();
   });
@@ -51,7 +46,7 @@ app.get('/tickets', (request, response) => {
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
-      response.send("Not Good... Error " + err); }
+      response.send("READ Error: " + err); }
     else {
       response.render('tickets.ejs', {tickets: res.rows});
     }
@@ -59,6 +54,7 @@ app.get('/tickets', (request, response) => {
   });
 })
 
+// TODO
 // UPDATE TICKET DETAILS
 app.get('/tickets/update/:id', (req, res) => {
   req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
@@ -66,21 +62,13 @@ app.get('/tickets/update/:id', (req, res) => {
 })
 
 // DELETE TICKET
-
-// .get('/tickets/delete/:id', (req, res) => {
-//   if (req.params.id != '') {
-//     req.session.tickets.splice(req.params.id, 1);
-//   }
-//   res.redirect('/tickets');
-// })
-
 app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
   // client.connect();
-  client.query("DELETE FROM customer WHERE id = ? ",[id], function(err, rows){
+  client.query("DELETE FROM tickets WHERE id = ? ",[id], function(err, rows){
     if(err){
-      console.log("Error deleting : %s ", err );
-      res.send("Not Good... Error " + err);
+      console.error(err);
+      res.send("DELETE Error: " + err);
     }
     // client.end();
   });
