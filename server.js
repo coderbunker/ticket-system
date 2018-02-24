@@ -72,6 +72,7 @@ app.use(session({secret: 'topsecret'}))
 })
 
 // DELETE TICKET
+
 // .get('/tickets/delete/:id', (req, res) => {
 //   if (req.params.id != '') {
 //     req.session.tickets.splice(req.params.id, 1);
@@ -81,44 +82,17 @@ app.use(session({secret: 'topsecret'}))
 
 .get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
-  console.log('DOUBLE CHECK id', id);
   client.connect();
   client.query("DELETE FROM customer WHERE id = ? ",[id], function(err, rows){
     if(err){
       console.log("Error deleting : %s ", err );
-      response.send("Not Good... Error " + err);
+      res.send("Not Good... Error " + err);
     }
     res.redirect('/tickets');
   });
+  // MAYBE DELETE THIS TO TEST
   client.end();
 });
-// exports.delete_customer = function(req,res){
-//   var id = req.params.id;
-//   req.getConnection(function (err, connection) {
-//     connection.query("DELETE FROM customer  WHERE id = ? ",[id], function(err, rows){
-//       if(err)
-//         console.log("Error deleting : %s ",err );
-//       res.redirect('/customers');
-//     });
-//  });
-// };
-
-
-
-// ACCESS DB (REDUNDANT WITH TICKETS ACCESS)
-// TODO DELETE THIS AND DATABASE.EJS
-// .get('/db', (request, response) => {
-//   client.connect();
-//   client.query('SELECT * FROM tickets', (err, res) => {
-//     if (err) {
-//       console.error(err);
-//       response.send("Not Good: Error " + err); }
-//     else {
-//       response.render('database.ejs', {results: res.rows});
-//     }
-//     client.end();
-//   });
-// });
 
 // LIMIT WHERE USER CAN ACCESS
 // .use((req, res, next) => {
