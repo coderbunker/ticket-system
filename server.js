@@ -16,7 +16,6 @@ const client = new Client({
   connectionString: connectionString,
   ssl: true,
 });
-
 const app = express();
 
 client.connect();
@@ -35,7 +34,6 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
       console.error(err);
       response.send("CREATE Error: " + err);
     }
-    // client.end();
   });
   res.redirect('/problem');
 })
@@ -48,12 +46,10 @@ app.get('/tickets', (request, response) => {
       response.send("READ Error: " + err);
     }
     response.render('tickets.ejs', {tickets: res.rows});
-    // client.end();
   });
 })
 
-// TODO
-// UPDATE TICKET DETAILS
+// UPDATE TICKET RESOLVED
 app.get('/tickets/resolved/:id', (req, res) => {
   let id = req.params.id;
   client.query("UPDATE tickets SET resolved = NOT resolved WHERE uuid = '" + id + "'", (err, rows) => {
@@ -73,20 +69,14 @@ app.get('/tickets/delete/:id', (req, res) => {
       console.error(err);
       res.send("DELETE Error: " + err);
     }
-    // client.end();
   });
   res.redirect('/tickets');
 });
 
-// LIMIT WHERE USER CAN ACCESS
-// .use((req, res, next) => {
-//   res.redirect('/problem');
-// })
-
 // TESTING PORT
 // .listen(8080);
 
-const port = process.env.PORT || 1234;
+// const port = process.env.PORT || 1234;
 
 app.listen(port, () => {
   console.log(`working on ${port}`);
