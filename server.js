@@ -33,10 +33,25 @@ app.use(session({secret: 'topsecret'}))
 // VIEW PROBLEM
 // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
 .get('/problem', (req, res) => {
-  res.render('problem.ejs', {tickets: req.session.tickets});
+  // res.render('problem.ejs', {tickets: req.session.tickets});
+  res.render('problem.ejs');
 })
 
-// VIEW TICKETS
+// CREATE TICKET
+.post('/problem/add/', urlencodedParser, (req, res) => {
+  const now = new Date();
+  client.connect();
+  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
+    if (err) {
+      console.error(err);
+      response.send("Breaking thing... Error " + err);
+    }
+    client.end();
+  });
+  res.redirect('/problem');
+})
+
+// READ TICKETS
 .get('/tickets', (request, response) => {
   client.connect();
   client.query('SELECT * FROM tickets', (err, res) => {
@@ -50,53 +65,60 @@ app.use(session({secret: 'topsecret'}))
   });
 })
 
-// ADD TICKET
-.post('/problem/add/', urlencodedParser, (req, res) => {
-  const now = new Date();
-  client.connect();
-  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
-    if (err) {
-      console.error(err);
-      response.send("Breaking thing... Error " + err); }
-    else {
-  // res.redirect('/problem');
-    }
-    client.end();
-    console.log('after client.end thingf');
-  });
-  console.log('before redirect');
-  res.redirect('/problem');
-  console.log('should have redirected by now');
-})
-
-// DELETE TICKET
-// delete from cd.members where memid = 37;
-.get('/tickets/delete/:id', (req, res) => {
-  if (req.params.id != '') {
-    req.session.tickets.splice(req.params.id, 1);
-  }
-  res.redirect('/tickets');
-})
-
-// MODIFY TICKET DETAILS
+// UPDATE TICKET DETAILS
 .get('/tickets/update/:id', (req, res) => {
   req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
   res.redirect('/tickets');
 })
 
-// ACCESS DB
-.get('/db', (request, response) => {
+// DELETE TICKET
+// .get('/tickets/delete/:id', (req, res) => {
+//   if (req.params.id != '') {
+//     req.session.tickets.splice(req.params.id, 1);
+//   }
+//   res.redirect('/tickets');
+// })
+
+.delete('/tickets/delete/:id', (req, res) => {
+  let id = req.params.id;
+  console.log('DOUBLE CHECK id', id);
   client.connect();
-  client.query('SELECT * FROM tickets', (err, res) => {
-    if (err) {
-      console.error(err);
-      response.send("Not Good: Error " + err); }
-    else {
-      response.render('database.ejs', {results: res.rows});
+  client.query("DELETE FROM customer WHERE id = ? ",[id], function(err, rows){
+    if(err){
+      console.log("Error deleting : %s ", err );
+      response.send("Not Good... Error " + err);
     }
-    client.end();
+    res.redirect('/tickets');
   });
+  client.end();
 });
+// exports.delete_customer = function(req,res){
+//   var id = req.params.id;
+//   req.getConnection(function (err, connection) {
+//     connection.query("DELETE FROM customer  WHERE id = ? ",[id], function(err, rows){
+//       if(err)
+//         console.log("Error deleting : %s ",err );
+//       res.redirect('/customers');
+//     });
+//  });
+// };
+
+
+
+// ACCESS DB (REDUNDANT WITH TICKETS ACCESS)
+// TODO DELETE THIS AND DATABASE.EJS
+// .get('/db', (request, response) => {
+//   client.connect();
+//   client.query('SELECT * FROM tickets', (err, res) => {
+//     if (err) {
+//       console.error(err);
+//       response.send("Not Good: Error " + err); }
+//     else {
+//       response.render('database.ejs', {results: res.rows});
+//     }
+//     client.end();
+//   });
+// });
 
 // LIMIT WHERE USER CAN ACCESS
 // .use((req, res, next) => {
