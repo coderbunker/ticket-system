@@ -66,7 +66,7 @@ app.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
   // a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12
   // client.connect();
-  client.query("DELETE FROM tickets WHERE UUID = '" + id + "')", (err, rows) => {
+  client.query("DELETE FROM tickets WHERE UUID = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12')", (err, rows) => {
     if(err){
       console.error(err);
       res.send("DELETE Error: " + err);
