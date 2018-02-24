@@ -74,8 +74,7 @@ app.get('/tickets/delete/:id', (req, res) => {
     }
     // client.end();
   });
-  // res.redirect('/tickets');
-  res.redirect('/problem');
+  res.redirect('/tickets');
 });
 
 // LIMIT WHERE USER CAN ACCESS
