@@ -5,26 +5,35 @@
 </head>
   <body>
     <h1>To Do: (redesign into an actual table)</h1>
-    <ul>
+    <table style="width:100%">
+      <tr>
+        <th>Time</th>
+        <th>UUID</th>
+        <th>Item</th>
+        <th>Member</th>
+        <th>Description</th>
+        <th>Picture</th>
+        <th>Assigned</th>
+        <th>Resolved</th>
+        <th>Delete</th>
+      </tr>
       <% tickets.forEach(function(ticket, index) { %>
-        <li>
-          Time: <%- ticket.time %> -- <br>
-          UUID: <%= ticket.uuid %> -- <br>
-          Item: <%= ticket.item %> -- <br>
-          Member: <%= ticket.member %> -- <br>
-          Description: <%= ticket.description %> -- <br>
-          Picture: <%= ticket.picture %> -- <br>
-          Assigned to: <%= ticket.assigned %> -- <br>
-          Resolved: <%= ticket.resolved %> -- (needs to be turned into a modify link) <br>
-          <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
-            <p>
-              <label for="delete">Delete:</label>
+        <tr>
+          <td><%- ticket.time %></td>
+          <td><%= ticket.uuid %></td>
+          <td><%= ticket.item %></td>
+          <td><%= ticket.member %></td>
+          <td><%= ticket.description %></td>
+          <td><%= ticket.picture %></td>
+          <td><%= ticket.assigned %></td>
+          <td><%= ticket.resolved %></td>
+          <td>
+            <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
               <input type="submit" />
-            </p>
-          </form>
-          -----------------------------------------------
-        </li>
+            </form>
+          </td>
+        </tr>
       <% }); %>
-    </ul>
+    </table>
   </body>
 </html>
