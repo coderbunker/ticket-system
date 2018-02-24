@@ -38,7 +38,7 @@
             <p>
               Current Assignee: <%= ticket.assigned %>
             </p>
-            <form action="/problem/assigned/<%= ticket.uuid %>" method="update">
+            <form action="/tickets/assigned/<%= ticket.uuid %>" method="update">
               <p>
                 <label for="newassigned">New Assignee?</label>
                 <input type="text" name="newassigned" id="newassigned" autofocus />
