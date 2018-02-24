@@ -23,12 +23,14 @@ const app = express();
 app.use(session({secret: 'topsecret'}))
 
 // CREATE EMPTY ARRAY
-.use((req, res, next) => {
-  if (typeof(req.session.tickets) == 'undefined') {
-    req.session.tickets = [];
-  }
-  next();
-})
+// .use((req, res, next) => {
+//   if (typeof(req.session.tickets) == 'undefined') {
+//     req.session.tickets = [];
+//   }
+//   next();
+// })
+
+client.connect();
 
 // VIEW PROBLEM BUTTON
 // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
