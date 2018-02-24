@@ -30,7 +30,7 @@ app.get('/problem', (req, res) => {
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, time) values ('" + uuid() + "', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
@@ -62,14 +62,10 @@ app.get('/tickets/update/:id', (req, res) => {
 
 // DELETE TICKET
 app.get('/tickets/delete/:id', (req, res) => {
-  console.log('uuid1', uuid());
-  console.log('uuid2', uuid());
   let id = req.params.id;
   client.query("DELETE FROM tickets WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
-      console.log('uuid3', uuid());
-      console.log('uuid4', uuid());
       res.send("DELETE Error: " + err);
     }
     // client.end();
