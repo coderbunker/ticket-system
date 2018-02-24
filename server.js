@@ -49,13 +49,25 @@ app.get('/tickets', (request, response) => {
   });
 })
 
+// UPDATE TICKET ASSIGNED
+app.get('/tickets/assigned/:id', (req, res) => {
+  let id = req.params.id;
+  client.query("UPDATE tickets SET assigned = '" + req.body.newassigned + "' WHERE uuid = '" + id + "'", (err, rows) => {
+    if(err){
+      console.error(err);
+      res.send("UPDATE Assigned Error: " + err);
+    }
+  });
+  res.redirect('/tickets');
+})
+
 // UPDATE TICKET RESOLVED
 app.get('/tickets/resolved/:id', (req, res) => {
   let id = req.params.id;
   client.query("UPDATE tickets SET resolved = NOT resolved WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
-      res.send("UPDATE Error: " + err);
+      res.send("UPDATE Resolved Error: " + err);
     }
   });
   res.redirect('/tickets');

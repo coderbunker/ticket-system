@@ -34,7 +34,18 @@
           <td><%= ticket.member %></td>
           <td><%= ticket.description %></td>
           <td><%= ticket.picture %></td>
-          <td><%= ticket.assigned %></td>
+          <td>
+            <p>
+              Current Assignee: <%= ticket.assigned %>
+            </p>
+            <form action="/problem/assigned/<%= ticket.uuid %>" method="update">
+              <p>
+                <label for="newassigned">New Assignee?</label>
+                <input type="text" name="newassigned" id="newassigned" autofocus />
+                <input type="submit" />
+              </p>
+            </form>
+          </td>
           <td>
             <form action="/tickets/resolved/<%= ticket.uuid %>" method="update">
               <input type="submit" value= "<%= ticket.resolved %>" />
