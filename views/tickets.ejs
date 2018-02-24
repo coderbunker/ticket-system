@@ -16,10 +16,9 @@
           Picture: <%= ticket.picture %> -- <br>
           Assigned to: <%= ticket.assigned %> -- <br>
           Resolved: <%= ticket.resolved %> -- (needs to be turned into a modify link) <br>
-          Delete:
           <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
             <p>
-              <label for="delete">Delete?</label>
+              <label for="delete">Delete:</label>
               <input type="submit" />
             </p>
           </form>

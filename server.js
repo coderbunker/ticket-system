@@ -45,10 +45,9 @@ app.get('/tickets', (request, response) => {
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
-      response.send("READ Error: " + err); }
-    else {
-      response.render('tickets.ejs', {tickets: res.rows});
+      response.send("READ Error: " + err);
     }
+    response.render('tickets.ejs', {tickets: res.rows});
     // client.end();
   });
 })
@@ -70,7 +69,6 @@ app.get('/tickets/delete/:id', (req, res) => {
     }
     // client.end();
   });
-  // MAYBE DELETE THIS TO TEST
   res.redirect('/tickets');
 });
 
