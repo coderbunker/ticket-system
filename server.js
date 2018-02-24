@@ -40,20 +40,20 @@ app.use(session({secret: 'topsecret'}))
 // CREATE TICKET
 .post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  client.connect();
+  // client.connect();
   client.query("INSERT INTO tickets (uuid, description, time) values ('A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A12', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("Breaking thing... Error " + err);
     }
-    client.end();
+    // client.end();
   });
   res.redirect('/problem');
 })
 
 // READ TICKETS
 .get('/tickets', (request, response) => {
-  client.connect();
+  // client.connect();
   client.query('SELECT * FROM tickets', (err, res) => {
     if (err) {
       console.error(err);
@@ -61,7 +61,7 @@ app.use(session({secret: 'topsecret'}))
     else {
       response.render('tickets.ejs', {tickets: res.rows});
     }
-    client.end();
+    // client.end();
   });
 })
 
@@ -82,13 +82,13 @@ app.use(session({secret: 'topsecret'}))
 
 .get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
-  client.connect();
+  // client.connect();
   client.query("DELETE FROM customer WHERE id = ? ",[id], function(err, rows){
     if(err){
       console.log("Error deleting : %s ", err );
       res.send("Not Good... Error " + err);
     }
-    client.end();
+    // client.end();
   });
   // MAYBE DELETE THIS TO TEST
   res.redirect('/tickets');
