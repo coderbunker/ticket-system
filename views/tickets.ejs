@@ -42,7 +42,7 @@
               <p>
                 <label for="newassigned">New Assignee?</label>
                 <input type="text" name="newassigned" id="newassigned" autofocus />
-                <input type="submit" />
+                <input type="submit" value = "CHANGE" />
               </p>
             </form>
           </td>
@@ -53,7 +53,7 @@
           </td>
           <td>
             <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
-              <input type="submit" value = "DELETE"/>
+              <input type="submit" value = "DELETE" />
             </form>
           </td>
         </tr>
