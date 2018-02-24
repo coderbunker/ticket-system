@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="/main.css">
 </head>
   <body>
-    <h1>Problem?</h1>
+    <h1>New Ticket</h1>
     <form action="/problem/add/" method="post">
       <p>
         <label for="newproblem">Comments?</label>
@@ -12,5 +12,6 @@
         <input type="submit" />
       </p>
     </form>
+    <% include ./views/tickets %>
   </body>
 </html>

@@ -30,7 +30,7 @@ app.get('/problem', (req, res) => {
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, time) values ('" + uuid() + "', '" + req.body.newproblem + "', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid() + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
@@ -54,7 +54,9 @@ app.get('/tickets', (request, response) => {
 
 // TODO
 // UPDATE TICKET DETAILS
-app.get('/tickets/update/:id', (req, res) => {
+app.get('/tickets/resolved/:id', (req, res) => {
+  UPDATE films SET kind = 'Dramatic' WHERE kind = 'Drama';
+
   req.session.tickets[req.params.id].update ? req.session.tickets[req.params.id].update = false : req.session.tickets[req.params.id].update = true;
   res.redirect('/tickets');
 })
@@ -69,7 +71,8 @@ app.get('/tickets/delete/:id', (req, res) => {
     }
     // client.end();
   });
-  res.redirect('/tickets');
+  // res.redirect('/tickets');
+  res.redirect('/problem');
 });
 
 // LIMIT WHERE USER CAN ACCESS
