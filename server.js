@@ -55,7 +55,8 @@ app.get('/tickets', (request, response) => {
 // TODO
 // UPDATE TICKET DETAILS
 app.get('/tickets/resolved/:id', (req, res) => {
-  client.query("UPDATE tickets SET resolved = 'true'", (err, rows) => {
+  let id = req.params.id;
+  client.query("UPDATE tickets SET resolved = 'false' WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
       res.send("UPDATE Error: " + err);
