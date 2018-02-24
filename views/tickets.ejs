@@ -36,10 +36,14 @@
           <td><%= ticket.description %></td>
           <td><%= ticket.picture %></td>
           <td><%= ticket.assigned %></td>
-          <td><%= ticket.resolved %></td>
+          <td>
+            <form action="/tickets/resolved/<%= ticket.uuid %>" method="update">
+              <input type="submit" value= "<%= ticket.resolved %>" />
+            </form>
+            <%= ticket.resolved %></td>
           <td>
             <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
-              <input type="submit" />
+              <input type="submit" value = "DELETE"/>
             </form>
           </td>
         </tr>
