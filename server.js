@@ -30,7 +30,7 @@ app.use(session({secret: 'topsecret'}))
   next();
 })
 
-// VIEW PROBLEM
+// VIEW PROBLEM BUTTON
 // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
 .get('/problem', (req, res) => {
   // res.render('problem.ejs', {tickets: req.session.tickets});
@@ -79,7 +79,7 @@ app.use(session({secret: 'topsecret'}))
 //   res.redirect('/tickets');
 // })
 
-.delete('/tickets/delete/:id', (req, res) => {
+.get('/tickets/delete/:id', (req, res) => {
   let id = req.params.id;
   console.log('DOUBLE CHECK id', id);
   client.connect();
