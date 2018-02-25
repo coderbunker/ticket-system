@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table{
+      width: 100%;
+    }
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      text-align: center;
+    }
+  </style>
+</head>
+  <body>
+    <h1>Tickets</h1>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>UUID</th>
+        <th>Item</th>
+        <th>Member</th>
+        <th>Description</th>
+        <th>Picture</th>
+        <th>Assigned</th>
+        <th>Resolved</th>
+        <th>Delete</th>
+      </tr>
+      <% tickets.forEach(function(ticket, index) { %>
+        <tr>
+          <td><%= ticket.time %></td>
+          <td><%= ticket.uuid %></td>
+          <td><%= ticket.item %></td>
+          <td><%= ticket.member %></td>
+          <td><%= ticket.description %></td>
+          <td><%= ticket.picture %></td>
+          <td>
+            <p>
+              Current Assignee: <%= ticket.assigned %>
+            </p>
+            <form action="/tickets/assigned/<%= ticket.uuid %>" method="update">
+              <p>
+                <label for="newassigned">New Assignee?</label>
+                <input type="text" name="newassigned" id="newassigned" autofocus />
+                <input type="submit" value = "CHANGE" />
+              </p>
+            </form>
+          </td>
+          <td>
+            <form action="/tickets/resolved/<%= ticket.uuid %>" method="update">
+              <input type="submit" value= "<%= ticket.resolved %>" />
+            </form>
+          </td>
+          <td>
+            <form action="/tickets/delete/<%= ticket.uuid %>" method="delete">
+              <input type="submit" value = "DELETE" />
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+  </body>
+</html>
