@@ -20,6 +20,10 @@ const app = express();
 
 client.connect();
 
+app.get('/', (req, res) => {
+  res.render('index.html');
+})
+
 // VIEW PROBLEM BUTTON
 app.get('/problem', (req, res) => {
   // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER

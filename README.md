@@ -1,7 +1,7 @@
 # ticket-system
 Inventory Ticketing System
 
-Old Version is currently hosted on Heroku, go play.
+This version is currently hosted on Heroku, go play.
 
 [Create a new ticket](https://toy-ticket-heroku.herokuapp.com/problem)
 
