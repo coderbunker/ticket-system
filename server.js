@@ -21,7 +21,7 @@ const app = express();
 client.connect();
 
 app.get('/', (req, res) => {
-  res.render('index.html');
+  res.render('index.ejs');
 })
 
 // VIEW PROBLEM BUTTON
