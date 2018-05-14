@@ -25,17 +25,20 @@ app.get('/', (req, res) => {
 })
 
 // VIEW PROBLEM BUTTON
-app.get('/problem', (req, res) => {
-  // TODO TURN INTO A BUTTON/LINK FOR THE INVENTORY SERVER
-  res.render('problem.ejs');
+app.get('/problem/?uuid:uuid', urlencodedParser, (req, res) => {
+  let uuid = req.query.uuid;
+  res.render('problem.ejs', {uuid});
 })
 
 // CREATE TICKET
-app.post('/problem/add/', urlencodedParser, (req, res) => {
+app.post('/problem/add/?uuid=:uuid', urlencodedParser, (req, res) => {
+  let uuid = req.query.uuid;
+  console.log('THERE: ', uuid);
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid() + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + req.query.uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
+      console.log('ERROR: ', uuid);
       response.send("CREATE Error: " + err);
     }
   });
@@ -93,7 +96,7 @@ app.get('/tickets/delete/:id', (req, res) => {
 // TESTING PORT
 // .listen(8080);
 
-const port = process.env.PORT || 1234;
+const port = process.env.PORT || 2345;
 
 app.listen(port, () => {
   console.log(`working on ${port}`);
