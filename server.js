@@ -25,17 +25,16 @@ app.get('/', (req, res) => {
 })
 
 // VIEW PROBLEM BUTTON
-app.get('/problem/?uuid:uuid', urlencodedParser, (req, res) => {
+app.get('/problem/', urlencodedParser, (req, res) => {
   let uuid = req.query.uuid;
   res.render('problem.ejs', {uuid});
 })
 
 // CREATE TICKET
-app.post('/problem/add/?uuid=:uuid', urlencodedParser, (req, res) => {
+app.post('/problem/add/', urlencodedParser, (req, res) => {
   let uuid = req.query.uuid;
-  console.log('THERE: ', uuid);
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + req.query.uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       console.log('ERROR: ', uuid);

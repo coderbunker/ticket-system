@@ -6,7 +6,7 @@
   <body>
     <h1>Creat New Ticket</h1>
     <%- uuid %>
-    <form action="/problem/add/" method="post">
+    <form action="/problem/add/?uuid=<%- uuid %>" method="post">
       <p>
         <label for="newproblem">Comments?</label>
         <input type="text" name="newproblem" id="newproblem" autofocus />
