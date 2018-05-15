@@ -26,10 +26,14 @@ app.get('/', (req, res) => {
 
 // VIEW PROBLEM BUTTON
 app.get('/problem/', urlencodedParser, (req, res) => {
-  let uuid = req.query.uuid;
+  let uuid;
+  if(req.query.uuid){
+    uuid = req.query.uuid;
+  }
   res.render('problem.ejs', {uuid});
 })
 
+// TODO STILL NOT PUSH TO DB, WHY?
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   let uuid = req.query.uuid;
