@@ -35,10 +35,10 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 
 // TODO STILL NOT PUSH TO DB, WHY?
 // CREATE TICKET
-app.post('/problem/add/', urlencodedParser, (req, res) => {
+app.post('/problem/add/:uuid', urlencodedParser, (req, res) => {
   let _uuid = "1403d4f6-f331-484c-994d-7f54e47709c9";
-  if(req.query.uuid){
-    console.log('HERE: ',req.query.uuid);
+  if(req.params.uuid){
+    console.log('HERE: ',req.params.uuid);
   }
   // console.log('PLEASE: ', _uuid);
   // if(req.query.uuid){
