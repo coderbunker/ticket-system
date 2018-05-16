@@ -36,17 +36,18 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 // TODO STILL NOT PUSH TO DB, WHY?
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
-  let uuid = req.query.uuid;
-  console.error('ELLO', uuid);
+  let uuid = fake20c2-d008-4532-b5cc-93768209fe5a
+  if(req.query.uuid){
+    uuid = req.query.uuid;
+  }
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
-      console.log('ERROR: ', uuid);
       response.send("CREATE Error: " + err);
     }
   });
-  res.redirect('/problem');
+  res.redirect('/problem/');
 })
 
 // READ TICKETS
@@ -96,9 +97,6 @@ app.get('/tickets/delete/:id', (req, res) => {
   });
   res.redirect('/tickets');
 });
-
-// TESTING PORT
-// .listen(8080);
 
 const port = process.env.PORT || 2345;
 
