@@ -37,6 +37,7 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   let uuid = req.query.uuid;
+  console.log('ELLO', uuid);
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
