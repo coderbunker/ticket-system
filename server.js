@@ -26,23 +26,24 @@ app.get('/', (req, res) => {
 
 // VIEW PROBLEM BUTTON
 app.get('/problem/', urlencodedParser, (req, res) => {
-  let uuid;
+  let _uuid;
   if(req.query.uuid){
-    uuid = req.query.uuid;
+    _uuid = req.query.uuid;
   }
-  res.render('problem.ejs', {uuid});
+  res.render('problem.ejs', {_uuid});
 })
 
 // TODO STILL NOT PUSH TO DB, WHY?
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
-  let uuid = "fake20c2-d008-4532-b5cc-93768209fe5a";
-  console.log('PLEASE: ', uuid);
+  console.log('NOT PLEASE');
+  let _uuid = "fake20c2-d008-4532-b5cc-93768209fe5a";
+  console.log('PLEASE: ', _uuid);
   // if(req.query.uuid){
   //   uuid = req.query.uuid;
   // }
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
