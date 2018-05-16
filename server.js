@@ -33,17 +33,10 @@ app.get('/problem/', urlencodedParser, (req, res) => {
   res.render('problem.ejs', {_uuid});
 })
 
-// TODO STILL NOT PUSH TO DB, WHY?
+// TODO HOW TO GRAB THE UUID FROM THE URL
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
-  console.log("PLEASE: ", req.params);
-  // console.log("PLEASE: ", req.params.id);
-
   let _uuid = "1403d4f6-f331-484c-994d-7f54e47709c9";
-  // if(req.params.uuid){
-  //   console.log('HERE: ',req.params.uuid);
-  // }
-  // console.log('PLEASE: ', req.params);
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
