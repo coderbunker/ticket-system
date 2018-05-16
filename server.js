@@ -37,10 +37,10 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 // CREATE TICKET
 app.post('/problem/add/:uuid', urlencodedParser, (req, res) => {
   let _uuid = "1403d4f6-f331-484c-994d-7f54e47709c9";
-  if(req.params.uuid){
-    console.log('HERE: ',req.params.uuid);
-  }
-  // console.log('PLEASE: ', _uuid);
+  // if(req.params.uuid){
+  //   console.log('HERE: ',req.params.uuid);
+  // }
+  console.log('PLEASE: ', req.params);
   // if(req.query.uuid){
   //   uuid = req.query.uuid;
   // }
@@ -68,7 +68,6 @@ app.get('/tickets', (request, response) => {
 // UPDATE TICKET ASSIGNED
 app.get('/tickets/assigned/:id', urlencodedParser, (req, res) => {
   let id = req.params.id;
-  console.log('DA WHOLE BODY: ', req);
   client.query("UPDATE tickets SET assigned = '" + req.query.newassigned + "' WHERE uuid = '" + id + "'", (err, rows) => {
     if(err){
       console.error(err);
