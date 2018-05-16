@@ -36,11 +36,12 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 // TODO STILL NOT PUSH TO DB, WHY?
 // CREATE TICKET
 app.post('/problem/add/', urlencodedParser, (req, res) => {
+  console.log("PLEASE: ", req.body);
   let _uuid = "1403d4f6-f331-484c-994d-7f54e47709c9";
   // if(req.params.uuid){
   //   console.log('HERE: ',req.params.uuid);
   // }
-  console.log('PLEASE: ', req.params);
+  // console.log('PLEASE: ', req.params);
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
