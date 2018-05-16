@@ -4,9 +4,9 @@
   <link rel="stylesheet" href="/main.css">
 </head>
   <body>
-    <h1>Creat New Ticket</h1>
-    <%- uuid %>
-    <form action="/problem/add/?uuid=<%- uuid %>" method="post">
+    <h1>Create New Ticket</h1>
+    <%- _uuid %>
+    <form action="/problem/add/" method="post">
       <p>
         <label for="newproblem">Comments?</label>
         <input type="text" name="newproblem" id="newproblem" autofocus />
