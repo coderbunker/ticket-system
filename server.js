@@ -8,7 +8,6 @@ const { Client } = require('pg');
 const pool = new pg.Pool();
 const connectionString = process.env.DATABASE_URL;
 const client = new Client({
-  // TODO CUT OUT SOME OF THIS TO SEE WHAT IS NEEDED
   host: connectionString,
   port: process.env.PORT || 5432,
   user: 'crhmioxrgicttd',
@@ -41,11 +40,18 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
   res.redirect('/problem/');
 })
 
-app.get('/problem/add/:uuid', urlencodedParser, (req, res) => {
-  let _uuid = req.params.uuid;
-  console.log('TEST: ', _uuid);
+// CREATE TICKET FROM CMS APP
+app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) =>
+  let _description;
+  let _uuid;
+  if(req.params.description){
+    _description = req.params.description
+  };
+  if(req.params.uuid){
+    _uuid = req.params.uuid
+  };
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
