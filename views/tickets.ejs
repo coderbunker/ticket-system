@@ -27,10 +27,9 @@
         <th>Delete</th>
       </tr>
       <% tickets.forEach(function(ticket, index) { %>
-        <% ticket.uuid = ticktet.uuid.toUpperCase() %>
         <tr>
           <td><%= ticket.time %></td>
-          <td><a href="https://url.coderbunker.com/<%= ticket.uuid %>"><%= ticket.uuid %></a></td>
+          <td><a href="https://url.coderbunker.com/<%= ticket.uuid.toUpperCase() %>"><%= ticket.uuid %></a></td>
           <td><%= ticket.item %></td>
           <td><%= ticket.member %></td>
           <td><%= ticket.description %></td>
