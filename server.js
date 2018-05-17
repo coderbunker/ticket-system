@@ -47,9 +47,10 @@ app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) => {
   if(req.params.description){
     _description = req.params.description;
   }
-  if(req.params.uuid){
+  if(req.query.uuid){
     _uuid = req.params.uuid;
   }
+  console.log('Query: ', req.query);
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
