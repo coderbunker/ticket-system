@@ -57,7 +57,7 @@ app.get('/problem/add/?', urlencodedParser, (req, res) => {
       response.send("CREATE Error: " + err);
     }
   });
-  res.redirect('http://www.spazcool.com');
+  res.redirect('https://url.coderbunker.com/' + _uuid);
 })
 
 // READ TICKETS
