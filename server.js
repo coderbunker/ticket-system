@@ -47,7 +47,7 @@ app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) => {
   if(req.params.description){
     _description = req.params.description;
   }
-  if(req.query.uuid){
+  if(req.params.uuid){
     _uuid = req.params.uuid;
   }
   console.log('Query: ', req.query);
