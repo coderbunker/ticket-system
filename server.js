@@ -42,10 +42,7 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 
 // CREATE TICKET FROM CMS APP
 app.get('/problem/add/:uuid/', urlencodedParser, (req, res) =>
-  let _uuid;
-  if(req.params.uuid){
-    _uuid = req.params.uuid;
-  }
+  let _uuid = req.params.uuid;
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + undefined + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
