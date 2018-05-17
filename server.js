@@ -41,10 +41,17 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 })
 
 // CREATE TICKET FROM CMS APP
-app.get('/problem/add/:uuid/', urlencodedParser, (req, res) =>
-  let _uuid = req.params.uuid;
+app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) => {
+  let _description;
+  let _uuid;
+  if(req.params.description){
+    _description = req.params.description;
+  }
+  if(req.params.uuid){
+    _uuid = req.params.uuid;
+  }
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + undefined + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
