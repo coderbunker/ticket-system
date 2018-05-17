@@ -26,18 +26,26 @@ app.get('/', (req, res) => {
 
 // VIEW PROBLEM BUTTON
 app.get('/problem/', urlencodedParser, (req, res) => {
-  let _uuid;
-  if(req.query.uuid){
-    _uuid = req.query.uuid;
-  }
-  res.render('problem.ejs', {_uuid});
+  res.render('problem.ejs');
 })
 
-// TODO HOW TO GRAB THE UUID FROM THE URL
 // CREATE TICKET USING SUBMIT FORM
 app.post('/problem/add/', urlencodedParser, (req, res) => {
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid() + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+    if (err) {
+      console.error(err);
+      response.send("CREATE Error: " + err);
+    }
+  });
+  res.redirect('/problem/');
+})
+
+app.post('/problem/add/:uuid', urlencodedParser, (req, res) => {
+  let _uuid = req.query.uuid;
+  console.log('TEST: ', _uuid);
+  const now = new Date();
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
