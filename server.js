@@ -44,13 +44,12 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 app.get('/problem/add/?', urlencodedParser, (req, res) => {
   let _description;
   let _uuid;
-  if(req.query.description){
-    _description = req.query.description;
+  if(req.query.desc){
+    _description = req.query.desc;
   }
   if(req.query.uuid){
     _uuid = req.query.uuid;
   }
-  console.log('Query: ', req.query);
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
@@ -58,7 +57,7 @@ app.get('/problem/add/?', urlencodedParser, (req, res) => {
       response.send("CREATE Error: " + err);
     }
   });
-  res.redirect('/problem/');
+  res.redirect('www.spazcool.com');
 })
 
 // READ TICKETS
