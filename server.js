@@ -42,7 +42,7 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 
 // CREATE TICKET FROM CMS APP
 app.get('/problem/add/:uuid/', urlencodedParser, (req, res) =>
-  let _uuid = undefined;
+  let _uuid;
   if(req.params.uuid){
     _uuid = req.params.uuid;
   }
