@@ -41,7 +41,7 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
   res.redirect('/problem/');
 })
 
-app.post('/problem/add/:uuid', urlencodedParser, (req, res) => {
+app.get('/problem/add/:uuid', urlencodedParser, (req, res) => {
   let _uuid = req.query.uuid;
   console.log('TEST: ', _uuid);
   const now = new Date();
