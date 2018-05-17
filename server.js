@@ -41,14 +41,14 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 })
 
 // CREATE TICKET FROM CMS APP
-app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) => {
+app.get('/problem/add/?', urlencodedParser, (req, res) => {
   let _description;
   let _uuid;
-  if(req.params.description){
-    _description = req.params.description;
+  if(req.query.description){
+    _description = req.query.description;
   }
-  if(req.params.uuid){
-    _uuid = req.params.uuid;
+  if(req.query.uuid){
+    _uuid = req.query.uuid;
   }
   console.log('Query: ', req.query);
   const now = new Date();
