@@ -44,8 +44,6 @@ app.post('/problem/add/', urlencodedParser, (req, res) => {
 app.get('/problem/add/?', urlencodedParser, (req, res) => {
   let _description;
   let _uuid;
-  // 9be61272-1947-4660-8085-303ee2dd2a7d
-  // 9BE61272-1947-4660-8085-303EE2DD2A7D
   if(req.query.desc){
     _description = req.query.desc;
   }
@@ -53,7 +51,7 @@ app.get('/problem/add/?', urlencodedParser, (req, res) => {
     _uuid = req.query.uuid;
   }
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid.toUpper() + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
