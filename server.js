@@ -45,11 +45,11 @@ app.get('/problem/add/:uuid/:description', urlencodedParser, (req, res) =>
   let _description;
   let _uuid;
   if(req.params.description){
-    _description = req.params.description
-  };
+    _description = req.params.description;
+  }
   if(req.params.uuid){
-    _uuid = req.params.uuid
-  };
+    _uuid = req.params.uuid;
+  }
   const now = new Date();
   client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + _description + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
