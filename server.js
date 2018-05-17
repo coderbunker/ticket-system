@@ -34,11 +34,10 @@ app.get('/problem/', urlencodedParser, (req, res) => {
 })
 
 // TODO HOW TO GRAB THE UUID FROM THE URL
-// CREATE TICKET
+// CREATE TICKET USING SUBMIT FORM
 app.post('/problem/add/', urlencodedParser, (req, res) => {
-  let _uuid = "1403d4f6-f331-484c-994d-7f54e47709c9";
   const now = new Date();
-  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + _uuid + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
+  client.query("INSERT INTO tickets (uuid, description, resolved, time) values ('" + uuid() + "', '" + req.body.newproblem + "', 'false', '" + now.toTimeString() + "')", (err, res) => {
     if (err) {
       console.error(err);
       response.send("CREATE Error: " + err);
